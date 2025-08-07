@@ -26,7 +26,7 @@ function PricingPage() {
         </p>
         <PricingTable
           appearance={{
-            baseTheme: currentTheme === "dark" ? dark : undefined,
+            ...(currentTheme === "dark" && { baseTheme: dark }),
             elements: {
               pricingTableCard: "border! shadow-none! rounded-lg!",
             },

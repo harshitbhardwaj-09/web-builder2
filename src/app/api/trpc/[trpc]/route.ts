@@ -8,14 +8,13 @@ const handler = (req: Request) =>
     req,
     router: appRouter,
     createContext: createTRPCContext,
-    onError:
-      process.env.NODE_ENV === "development"
-        ? ({ path, error }) => {
-            console.error(
-              `❌ tRPC failed on ${path ?? "<no-path>"}: ${error}`,
-            )
-          }
-        : undefined,
+    ...(process.env.NODE_ENV === "development" && {
+      onError: ({ path, error }) => {
+        console.error(
+          `❌ tRPC failed on ${path ?? "<no-path>"}: ${error}`,
+        )
+      },
+    }),
   })
 
 // Add CORS headers
