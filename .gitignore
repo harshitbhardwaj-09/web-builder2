@@ -1,0 +1,8 @@
+
+# clerk configuration (can include secrets)
+/.clerk/
+.env
+.git
+node_modules
+.clerk
+.next
