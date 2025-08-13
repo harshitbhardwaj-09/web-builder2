@@ -9,6 +9,7 @@ import { useState } from "react"
 import superjson from "superjson"
 import { makeQueryClient } from "@/trpc/query-client"
 import type { AppRouter } from "@/trpc/routers/_app"
+import { clientEnv } from "@/lib/env/client"
 
 export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>()
 let browserQueryClient: QueryClient
@@ -20,7 +21,17 @@ function getQueryClient() {
   return browserQueryClient
 }
 function getUrl() {
-  // Always use localhost:3000 in development
+  if (typeof window !== "undefined") {
+    // Client-side: use current origin
+    return `${window.location.origin}/api/trpc`
+  }
+  
+  // Server-side: use environment variable or fallback
+  if (process.env.NODE_ENV === "production") {
+    return `${clientEnv.NEXT_PUBLIC_APP_URL}/api/trpc`
+  }
+  
+  // Development fallback
   return "http://localhost:3000/api/trpc"
 }
 export function TRPCReactProvider(

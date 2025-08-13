@@ -18,6 +18,8 @@ export const serverEnv = createEnv({
     E2B_API_KEY: z.string({
       required_error: "E2B_API_KEY is required in environment variables",
     }),
+
+    INNGEST_SIGNING_KEY: z.string().optional(),
   },
   experimental__runtimeEnv: process.env,
 })
