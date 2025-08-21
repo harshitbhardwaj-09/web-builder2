@@ -6,3 +6,4 @@
 node_modules
 .clerk
 .next
+.env.local
